@@ -33,13 +33,14 @@ router.patch("/:id", async (req, res) => {
         if (!todo) return res.status(404).json({message: "Todo not found"});
 
         if (req.body.text !== undefined) {
-            todo.text = req.body.text
+            todo.text = req.body.text;
         }
         
         if (req.body.completed !== undefined) {
-            todo.completed = req.body.completed
+            todo.completed = req.body.completed;
         }
-        
+        const updatedTodo = await todo.save();
+        res.json(updatedTodo);
     } catch(error) {
         res.status(400).json({message: err.message})
     }
